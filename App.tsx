@@ -1,120 +1,87 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
-import React, {type PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section: React.FC<
-  PropsWithChildren<{
-    title: string;
-  }>
-> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+import { View, SafeAreaView, Text, ScrollView } from "react-native";
+import Player from "./src/screens/Player";
+import Search from "./src/screens/Search";
+import Navigation from "./src/components/Navigation";
+import { useEffect, useState } from "react";
+import TrackPlayer, { Capability } from "react-native-track-player";
+import Library from "./src/screens/Library";
+import AppContext from "./src/contexts/app";
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const [screen, setScreen] = useState('search');
+  const [token, setToken] = useState<string>();
+
+  useEffect(() => {
+    const setupPlayer = async () => {
+      await TrackPlayer.setupPlayer();
+      await TrackPlayer.updateOptions({
+        progressUpdateEventInterval: 1,
+        capabilities: [
+          Capability.Play,
+          Capability.Pause,
+          Capability.SkipToNext,
+          Capability.SkipToPrevious,
+          Capability.SeekTo
+      ],
+      },)
+    };
+    setupPlayer();
+  }, []);
+
+  useEffect(() => {
+    const getToken = async () => {
+      if (token) return;
+      var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      };
+      let response;
+      try {
+        response = await fetch("https://musicfy-back.herokuapp.com/songs/token", requestOptions)
+        response = await response.json();
+      } catch (error) {
+        console.log('error', error)
+        return;
+      }
+      if (response.success === false) return;
+      setToken(response.data.token);
+    };
+    getToken();
+  }, [token]);
+
+  const context = {
+    setScreen,
+    token, setToken,
   };
 
+  const Screen = () => {
+    switch (screen) {
+      case 'search':
+        return <Search />
+      case 'library':
+        return <Library />
+      case 'player':
+        return <Player />
+      default:
+        return <Search />
+    }
+  }
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <AppContext.Provider value={context}>
+      <View className="bg-[#fdfdfe]">
+        <SafeAreaView>
+          <View className="h-full w-full">
+            <ScrollView className="p-2" showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
+              <Screen />
+            </ScrollView>
+            <Navigation screen={screen} setScreen={setScreen} />
+          </View>
+        </SafeAreaView>
+      </View>
+    </AppContext.Provider>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
