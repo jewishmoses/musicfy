@@ -39,7 +39,7 @@ const SongCard = ({ song }: SongCardProps) => {
     const path = `${RNFS.DocumentDirectoryPath}/${song.id}.mp3`;
     RNFetchBlob
       .config({ path })
-      .fetch('GET', `https://musicfy-back.herokuapp.com/songs/${song.id}`)
+      .fetch('GET', `https://musicfy.nymz.dev/songs/${song.id}`)
       .progress((received, total) => {
         let progressPercent = (received / total);
         setDownloadProgress(progressPercent);

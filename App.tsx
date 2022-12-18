@@ -38,7 +38,7 @@ const App = () => {
       };
       let response;
       try {
-        response = await fetch("https://musicfy-back.herokuapp.com/songs/token", requestOptions)
+        response = await fetch("https://musicfy.nymz.dev/songs/token", requestOptions)
         response = await response.json();
       } catch (error) {
         console.log('error', error)
