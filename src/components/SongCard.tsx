@@ -23,7 +23,7 @@ const SongCard = ({ song }: SongCardProps) => {
     });
     realm.write(() => {
       const songExists = realm.objectForPrimaryKey("Song", song.id) !== null;
-      if(songExists) return;
+      if (songExists) return;
       realm.create("Song", {
         name: song.name,
         artist_name: song.artists[0].name,
@@ -61,19 +61,23 @@ const SongCard = ({ song }: SongCardProps) => {
   };
 
   return (
-    <View className="flex flex-row items-center justify-between mb-2">
-      <Progress inProgress={isDownloading} progress={downloadProgress} />
-      <View className="flex flex-row items-center">
-        <Image className="h-[75px] aspect-[1] rounded-lg mr-3" source={{ uri: song.album.images[0].url }} />
-        <View>
-          <Text className="font-bold text-xl">{song.name}</Text>
-          <Text className="text-xs">{song.artists[0].name}</Text>
-        </View>
+    <View>
+      <View className="flex flex-row items-center justify-between mb-2">
+        <Progress inProgress={isDownloading} progress={downloadProgress} />
+        <TouchableOpacity onPress={downloadSong}>
+          <View className="flex flex-row items-center">
+            <Image className="p-2 h-[75px] aspect-[1] rounded-lg mr-3" source={{ uri: song.album.images[0].url }} />
+            <View>
+              <Text className="text-xl">{song.name}</Text>
+              <Text className="text-xs text-[#888988]">{song.artists[0].name}</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {}}>
+          <Icon name="more-horiz" size={30} color="#000" />
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={downloadSong}>
-        <Icon name="file-download" size={30} color="#848485" />
-      </TouchableOpacity>
-      {/* <Icon name="file-download-done" size={30} color="#848485" /> */}
+      <View className="mb-2 border border-[#E4E4E4] w-full border-[0.5px]" />
     </View>
   )
 }

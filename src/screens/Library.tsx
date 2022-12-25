@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import { View, Image, Text, TouchableOpacity } from "react-native";
+import { View, Image, Text, TouchableOpacity, ScrollView } from "react-native";
 import TrackPlayer from "react-native-track-player";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import AppContext from "../contexts/app";
@@ -71,25 +71,36 @@ const Library = () => {
 
   return (
     <View>
-      {songs.map(song => {
-        return (<View key={song.name} className="flex flex-row items-center justify-between mb-2">
-          <View className="flex flex-row items-center">
-            <Image className="h-[75px] aspect-[1] rounded-lg mr-3" source={{ uri: song.image }} />
-            <View>
-              <Text className="font-bold text-xl">{song.name}</Text>
-              <Text className="text-xs">{song.artist_name}</Text>
-            </View>
-          </View>
-          <TouchableOpacity onPress={() => { playSong(song); }}>
-            <Icon name="play-circle-filled" size={30} color="#848485" />
-          </TouchableOpacity>
-          {/* <Icon name="file-download-done" size={30} color="#848485" /> */}
-        </View>)
-      })}
-      <TouchableOpacity className="flex flex-row items-center" onPress={deleteAll}>
-        <Icon name="delete" size={40} />
-        <Text className="text-sm">Delete All</Text>
-      </TouchableOpacity>
+      <View className="flex flex-row justify-between items-center">
+        <TouchableOpacity className="flex flex-row items-center">
+          <Icon name="navigate-before" size={30} color="#C52E42" />
+          <Text className="text-lg text-[#C52E42]">Library</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text className="text-lg text-[#C52E42]">Sort</Text>
+        </TouchableOpacity>
+      </View>
+      <View className="p-2">
+        <Text className="text-4xl font-bold mb-4 mt-2">Songs</Text>
+        <ScrollView>
+          {songs.map(song => {
+            return (
+              <View key={song.name} className="flex flex-row items-center justify-between mb-2">
+                <TouchableOpacity onPress={() => { playSong(song); }} className="flex-1 flex flex-row w-full items-center">
+                  <Image className="h-[55px] aspect-[1] rounded-lg mr-3" source={{ uri: song.image }} />
+                  <View>
+                    <Text className="text-lg">{song.name}</Text>
+                    <Text className="text-xs text-[#7F7F7F]">{song.artist_name}</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { }}>
+                  <Icon name="more-horiz" size={25} color="#000" />
+                </TouchableOpacity>
+              </View>
+            )
+          })}
+        </ScrollView>
+      </View>
     </View>
   )
 }
