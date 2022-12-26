@@ -86,16 +86,21 @@ const Library = () => {
           {songs.map(song => {
             return (
               <View key={song.name} className="flex flex-row items-center justify-between mb-2">
-                <TouchableOpacity onPress={() => { playSong(song); }} className="flex-1 flex flex-row w-full items-center">
-                  <Image className="h-[55px] aspect-[1] rounded-lg mr-3" source={{ uri: song.image }} />
-                  <View>
-                    <Text className="text-lg">{song.name}</Text>
+                <View className="flex-1 flex flex-row w-full items-center">
+                  <TouchableOpacity onPress={() => { playSong(song); }}>
+                    <Image className="h-[55px] aspect-[1] rounded-lg mr-3" source={{ uri: song.image }} />
+                  </TouchableOpacity>
+                  <View className="w-full">
+                    <TouchableOpacity onPress={() => { playSong(song); }}>
+                      <Text className="text-lg">{song.name}</Text>
+                    </TouchableOpacity>
                     <Text className="text-xs text-[#7F7F7F]">{song.artist_name}</Text>
+                    <View className="border mt-2 border-[0.5px] border-[#DADADA] border-bottom w-full" />
                   </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { }}>
-                  <Icon name="more-horiz" size={25} color="#000" />
-                </TouchableOpacity>
+                  <TouchableOpacity className="ml-auto" onPress={() => { }}>
+                    <Icon name="more-horiz" size={25} color="#000" />
+                  </TouchableOpacity>
+                </View>
               </View>
             )
           })}
