@@ -41,6 +41,7 @@
 	<array>
 		<string>AntDesign.ttf</string>
 		<string>MaterialIcons.ttf</string>
+		<string>Ionicons.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

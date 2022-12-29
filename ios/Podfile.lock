@@ -1,5 +1,7 @@
 PODS:
   - boost (1.76.0)
+  - BVLinearGradient (2.6.2):
+    - React-Core
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.70.5)
@@ -379,6 +381,8 @@ PODS:
     - React-Core
   - RNFS (2.20.0):
     - React-Core
+  - RNImageColors (1.5.1):
+    - React-Core
   - SocketRocket (0.6.0)
   - SwiftAudioEx (0.15.3)
   - Yoga (1.14.0)
@@ -387,6 +391,7 @@ PODS:
 
 DEPENDENCIES:
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
+  - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
@@ -449,6 +454,7 @@ DEPENDENCIES:
   - RealmJS (from `../node_modules/realm`)
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - RNFS (from `../node_modules/react-native-fs`)
+  - RNImageColors (from `../node_modules/react-native-image-colors`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -473,6 +479,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
+  BVLinearGradient:
+    :path: "../node_modules/react-native-linear-gradient"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -547,11 +555,14 @@ EXTERNAL SOURCES:
     :path: "../node_modules/rn-fetch-blob"
   RNFS:
     :path: "../node_modules/react-native-fs"
+  RNImageColors:
+    :path: "../node_modules/react-native-image-colors"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
   boost: a7c83b31436843459a1961bfd74b96033dc77234
+  BVLinearGradient: 34a999fda29036898a09c6a6b728b0b4189e1a44
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: affa4ba1bfdaac110a789192f4d452b053a86624
@@ -602,6 +613,7 @@ SPEC CHECKSUMS:
   RealmJS: de680a55666ee89252470f5254930a41001e43c1
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
+  RNImageColors: fd9777591fc765780e035f4bec7a42edabc86eb4
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   SwiftAudioEx: 83eabba2940924fc1c0d5cb0896049921365229c
   Yoga: eca980a5771bf114c41a754098cd85e6e0d90ed7

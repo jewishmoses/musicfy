@@ -23,7 +23,7 @@ const App = () => {
           Capability.SkipToNext,
           Capability.SkipToPrevious,
           Capability.SeekTo
-      ],
+        ],
       },)
     };
     setupPlayer();
@@ -61,25 +61,29 @@ const App = () => {
         return <Search />
       case 'library':
         return <Library />
-      case 'player':
-        return <Player />
       default:
-        return <Search />
+        return <></>
     }
   }
 
   return (
     <AppContext.Provider value={context}>
-      <View className="bg-[#fdfdfe]">
-        <SafeAreaView>
-          <View className="h-full w-full">
-            <ScrollView className="p-2" showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
-              <Screen />
-            </ScrollView>
-            <Navigation screen={screen} setScreen={setScreen} />
+      {
+        screen === 'player'
+          ?
+          <Player />
+          :
+          <View className="bg-[#fdfdfe]">
+            <SafeAreaView>
+              <View className="h-full w-full">
+                <ScrollView className="p-2" showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
+                  <Screen />
+                </ScrollView>
+                <Navigation screen={screen} setScreen={setScreen} />
+              </View>
+            </SafeAreaView>
           </View>
-        </SafeAreaView>
-      </View>
+      }
     </AppContext.Provider>
   );
 };
