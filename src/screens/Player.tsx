@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { formatSeconds } from "../helpers/player";
 import ImageColors from 'react-native-image-colors'
 import LinearGradient from 'react-native-linear-gradient';
+import Color from 'color';
 
 const Player = () => {
 
@@ -43,16 +44,28 @@ const Player = () => {
     setup();
   }, []);
 
+  const getColor = (hex: string) => {
+    let color = Color(hex)
+    if(color.lightness() > 80) {
+      color = color.darken(0.5).blacken(0.5);
+    }
+    if(color.lightness() < 20) {
+      color = Color("#222222");
+    }
+    return color.saturate(0.1).lighten(0.1).hex();
+  };
+
   useEffect(() => {
 
     (async () => {
       if (!track.artwork) return
-      const result: any = await ImageColors.getColors(track.artwork, {
+      const result: any = await ImageColors.getColors(track.artwork, { // todo: fix any type
         cache: true,
         key: 'unique_key',
         quality: 'high',
       })
-      setColors([result.background, result.background, result.background, result.background, "#222222"])
+      const color = getColor(result.background);
+      setColors([color, color, color, color, "#222222"])
     })(); // todo: create a readable function
 
   }, [track]);
@@ -83,7 +96,8 @@ const Player = () => {
           </View>
           <View className="mx-4 flex flex-row justify-between items-center">
             <View>
-              <Text className="font-bold text-2xl text-[#F0F0F0]">{track.title}</Text>
+              <Text className="font-bold text-2xl text-[#F0F0F0]" numberOfLines={1} ellipsizeMode="tail">{track.title}</Text>
+              {/* todo: make sure text will spin in place, like in apple music player */}
               <Text className="text-xl text-white opacity-50">{track.artist}</Text>
             </View>
             <TouchableOpacity className="flex justify-center items-center rounded-full p-1" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', }}>
