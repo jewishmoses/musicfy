@@ -2,12 +2,13 @@ import { Image, SafeAreaView, Text, TouchableOpacity, View, PanResponder, Animat
 import Slider from '@react-native-community/slider';
 import Icon from "react-native-vector-icons/Ionicons";
 import TrackPlayer, { Event, PlaybackProgressUpdatedEvent } from "react-native-track-player";
-import { useCallback, useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useState, useRef, useContext } from "react";
 import { formatSeconds } from "../helpers/player";
 import ImageColors from 'react-native-image-colors'
 import LinearGradient from 'react-native-linear-gradient';
 import Color from 'color';
 import { Dimensions } from 'react-native';
+import AppContext from '../contexts/app';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -25,6 +26,7 @@ const Player = () => {
   const animatedStyle = {
     transform: [{ translateY: swipeDownProgress }],
   };
+  const { setScreen } = useContext(AppContext);
 
   const getColor = (hex: string) => {
     let color = Color(hex)
@@ -87,7 +89,9 @@ const Player = () => {
     },
     onPanResponderRelease: (evt, gestureState) => {
       if (gestureState.dy > screenHeight - swipeThreshold) {
-        console.log('Swipe down action triggered');
+        swipeDownProgress.setValue(screenHeight - swipeThreshold);
+        setScreen('library');
+        return;
       }
       swipeDownProgress.setValue(0);
     },
