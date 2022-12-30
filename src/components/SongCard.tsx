@@ -66,14 +66,14 @@ const SongCard = ({ song }: SongCardProps) => {
         <Progress inProgress={isDownloading} progress={downloadProgress} />
         <TouchableOpacity onPress={downloadSong}>
           <View className="flex flex-row items-center">
-            <Image className="p-2 h-[75px] aspect-[1] rounded-lg mr-3" source={{ uri: song.album.images[0].url }} />
+            <Image className="p-2 h-[60px] aspect-[1] rounded-lg mr-3" source={{ uri: song.album.images[0].url }} />
             <View>
-              <Text className="text-xl">{song.name}</Text>
+              <Text className="text-lg">{song.name}</Text>
               <Text className="text-xs text-[#888988]">{song.artists[0].name}</Text>
             </View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={() => { }}>
           <Icon name="more-horiz" size={30} color="#000" />
         </TouchableOpacity>
       </View>

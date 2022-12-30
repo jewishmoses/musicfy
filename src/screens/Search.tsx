@@ -57,15 +57,35 @@ const Search = () => {
     <>
       <Loading isLoading={isLoading} />
       <View className="flex flex-row">
-        <View className="items-center flex-1 flex flex-row p-2 mb-5 rounded-lg bg-[#f8f8f8]">
-          <Icon name="search" size={30} color="#747476" />
-          <TextInput returnKeyType="done" ref={search} className="ml-2 text-left rounded text-[#000] w-full text-sm mr-auto" placeholder="Artists, Songs, Lyrics, an.." onChangeText={setQuery} />
-          <Icon onPress={clearQuery} name="cancel" size={25} color="#747476" />
+        <View className="items-center flex-1 flex flex-row p-2 mb-3 rounded-lg bg-[#EEEEF0]">
+          <Icon name="search" size={30} color="#7B7A7F" />
+          <TextInput returnKeyType="done" ref={search} className="ml-2 text-left rounded text-[#000] w-full text-sm mr-auto" placeholderTextColor="#7E7D82" placeholder="Artists, Songs, Lyrics, an.." onChangeText={setQuery} />
+          <Icon onPress={clearQuery} name="cancel" size={25} color="#7B7A7F" />
         </View>
         <TouchableOpacity onPress={() => { }}>
           <Text className="p-2 text-[#C52E42] text-center text-lg">Cancel</Text>
         </TouchableOpacity>
       </View>
+      <ScrollView horizontal={true} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
+        <View className="flex flex-1 flex-row">
+          <TouchableOpacity className="p-2 mr-3 bg-[#FA243C] rounded-full">
+            <Text className=" text-white font-bold">Top Results</Text>
+          </TouchableOpacity>
+          <TouchableOpacity className="p-2 mr-3 rounded-full">
+            <Text className=" text-black font-bold">Artists</Text>
+          </TouchableOpacity>
+          <TouchableOpacity className="p-2 mr-3 rounded-full">
+            <Text className=" text-black font-bold">Albums</Text>
+          </TouchableOpacity>
+          <TouchableOpacity className="p-2 mr-3 rounded-full">
+            <Text className=" text-black font-bold">Songs</Text>
+          </TouchableOpacity>
+          <TouchableOpacity className="p-2 mr-3 rounded-full">
+            <Text className=" text-black font-bold">Playlists</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+      <View className="my-2 border border-[#E4E4E4] w-full border-[0.5px]" />
       <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
         {songs.map(song => <SongCard key={song.id} song={song} />)}
       </ScrollView>
