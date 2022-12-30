@@ -1,4 +1,4 @@
-import { View, SafeAreaView, Text, ScrollView } from "react-native";
+import { View, SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import Player from "./src/screens/Player";
 import Search from "./src/screens/Search";
 import Navigation from "./src/components/Navigation";
@@ -62,28 +62,23 @@ const App = () => {
       case 'library':
         return <Library />
       default:
-        return <></>
+        return <Library />
     }
   }
 
   return (
     <AppContext.Provider value={context}>
-      {
-        screen === 'player'
-          ?
-          <Player />
-          :
-          <View className="bg-[#fdfdfe]">
-            <SafeAreaView>
-              <View className="h-full w-full">
-                <ScrollView className="p-2" showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
-                  <Screen />
-                </ScrollView>
-                <Navigation screen={screen} setScreen={setScreen} />
-              </View>
-            </SafeAreaView>
+      <View className="bg-[#fdfdfe]" style={StyleSheet.absoluteFill}>
+        <SafeAreaView>
+          <View className="h-full w-full">
+            <ScrollView className="p-2" showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
+              <Screen />
+            </ScrollView>
+            <Navigation screen={screen} setScreen={setScreen} />
           </View>
-      }
+        </SafeAreaView>
+      </View>
+      {screen === 'player' ? <Player /> : <></>}
     </AppContext.Provider>
   );
 };
