@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native"
-import Icon from "react-native-vector-icons/MaterialIcons"
+import Icon from "react-native-vector-icons/Ionicons"
 
 type NavigationProps = {
   screen: string;
@@ -9,21 +9,22 @@ type NavigationProps = {
 const Navigation = ({ screen, setScreen }: NavigationProps) => {
   return (
     <View className="flex pt-2 flex-row justify-around items-center border-t-2 border-[#f1f1f1]">
-      <TouchableOpacity onPress={() => { setScreen('Browse') }}>
+      <TouchableOpacity onPress={() => { }}>
         <View className="flex items-center">
-          <Icon name="dashboard" size={30} color={screen === 'player' ? '#E03C4A' : "#959595"} />
+          <Icon name="ios-play-circle" size={30} color={screen === 'player' ? '#E03C4A' : "#959595"} />
           <Text className="text-xs" style={{ color: screen === 'player' ? '#E03C4A' : "#959595" }}>Player</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => { setScreen('player') }}>
+      {/* todo: add missing icon here */}
+      <TouchableOpacity onPress={() => { }}>
         <View className="flex items-center">
-          <Icon name="music-note" size={30} color={screen === 'player' ? '#E03C4A' : "#959595"} />
-          <Text className="text-xs" style={{ color: screen === 'player' ? '#E03C4A' : "#959595" }}>Player</Text>
+          <Icon name="ios-radio" size={30} color={screen === 'radio' ? '#E03C4A' : "#959595"} />
+          <Text className="text-xs" style={{ color: screen === 'radio' ? '#E03C4A' : "#959595" }}>Radio</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => { setScreen('library') }}>
         <View className="flex items-center">
-          <Icon name="library-music" size={30} color={screen === 'library' ? '#E03C4A' : "#959595"} />
+          <Icon name="ios-albums" size={30} color={screen === 'library' ? '#E03C4A' : "#959595"} />
           <Text className="text-xs" style={{ color: screen === 'library' ? '#E03C4A' : "#959595" }}>Library</Text>
         </View>
       </TouchableOpacity>
