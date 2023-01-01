@@ -5,13 +5,13 @@ Musicfy is a clone of the Apple Music app, which allows you to play your favorit
 ## Screenshots Comparison
 
 
-| Musicfy | Apple Music |
+| Apple Music | Musicfy |
 | --- | --- |
 | <img src="https://i.ibb.co/LJg7FS6/signal-2023-01-01-233843-002.jpg" width="200" height="auto">  | <img src="https://i.ibb.co/wNWs9Cr/signal-2023-01-01-233843-003.jpg" width="200" height="auto"> |
 
-| Musicfy | Apple Music |
+| Apple Music | Musicfy |
 | --- | --- |
-| <img src="https://i.ibb.co/FBQBXHQ/signal-2023-01-01-233843-005.jpg" width="200" height="auto"> | <img src="https://i.ibb.co/WyBWCVD/signal-2023-01-01-233843-004.jpg" width="200" height="auto"> |
+| <img src="https://i.ibb.co/WyBWCVD/signal-2023-01-01-233843-004.jpg" width="200" height="auto"> | <img src="https://i.ibb.co/FBQBXHQ/signal-2023-01-01-233843-005.jpg" width="200" height="auto"> |
 
 ## Table of contents
 
