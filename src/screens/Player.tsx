@@ -21,6 +21,7 @@ const Player = () => {
     duration: 0,
     position: 0,
   });
+  const [playbackState, setPlaybackState] = useState<string>();
   const [colors, setColors] = useState<string[]>(["#65656B", "#65656B", "#65656B", "#65656B", "#222222"]);
   const swipeDownProgress = useRef(new Animated.Value(0)).current;
   const animatedStyle = {
@@ -48,23 +49,27 @@ const Player = () => {
   //   }
   // });
 
-  const onPlaybackProgressUpdated = useCallback((event: PlaybackProgressUpdatedEvent) => {
+  const onPlaybackProgressUpdated = (event: PlaybackProgressUpdatedEvent) => {
     setPlayer({
       ...player,
       position: Math.round(event.position),
       duration: Math.round(event.duration),
     });
-  }, [player]);
+  };
 
   useEffect(() => {
     const setup = async () => {
       TrackPlayer.addEventListener(Event.PlaybackProgressUpdated, onPlaybackProgressUpdated);
+      TrackPlayer.addEventListener(Event.PlaybackState, (event) => {
+        setPlaybackState(event.state);
+      })
+      // todo: figure out what the below code does & improve it
       const index = await TrackPlayer.getCurrentTrack();
       const t = await TrackPlayer.getTrack(index);
       setTrack(t);
     }
     setup();
-  }, []);
+  }, [playbackState]);
 
   useEffect(() => {
     const initBackgroundColor = async () => {
@@ -96,6 +101,10 @@ const Player = () => {
       swipeDownProgress.setValue(0);
     },
   })).current;
+
+  const onSeek = useCallback((position: number) => {
+    TrackPlayer.seekTo(position);
+  }, []);
 
   return (
     <Animated.View
@@ -139,7 +148,9 @@ const Player = () => {
               <Slider
                 style={{ width: '100%', opacity: 0.5 }}
                 minimumValue={0}
-                maximumValue={1}
+                maximumValue={player.duration}
+                value={player.position}
+                onSlidingComplete={onSeek}
                 minimumTrackTintColor={"#fff"}
                 maximumTrackTintColor={"#b6b6b6"}
               />
@@ -152,10 +163,17 @@ const Player = () => {
               <TouchableOpacity className="mr-5" onPress={() => { }}>
                 <Icon name="ios-play-back" size={45} color="#fff" />
               </TouchableOpacity>
-              <TouchableOpacity className="mx-10" onPress={() => { }}>
-                <Icon name="ios-pause" size={60} color="#fff" />
-                {/* <Icon name="ios-play" size={60} color="#fff" /> */}
-              </TouchableOpacity>
+              {
+                playbackState === "playing"
+                  ?
+                  <TouchableOpacity className="mx-10" onPress={() => { TrackPlayer.pause() }}>
+                    <Icon name="ios-pause" size={60} color="#fff" />
+                  </TouchableOpacity>
+                  :
+                  <TouchableOpacity className="mx-10" onPress={() => { TrackPlayer.play() }}>
+                    <Icon name="ios-play" size={60} color="#fff" />
+                  </TouchableOpacity>
+              }
               <TouchableOpacity className="ml-5" onPress={() => { }}>
                 <Icon name="ios-play-forward" size={45} color="#fff" />
               </TouchableOpacity>
